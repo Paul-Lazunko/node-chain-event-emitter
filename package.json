@@ -1,0 +1,23 @@
+{
+  "name": "chain-event-emitter",
+  "version": "1.0.0",
+  "description": "Chain Event Emitter for NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paul-Lazunko/node-chain-event-emitter.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "EventEmitter"
+  ],
+  "author": "Paul Lazunko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Paul-Lazunko/node-chain-event-emitter/issues"
+  },
+  "homepage": "https://github.com/Paul-Lazunko/node-chain-event-emitter#readme"
+}
