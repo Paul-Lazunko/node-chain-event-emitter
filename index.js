@@ -8,7 +8,6 @@ ChainEventEmitter.prototype.on = function( name, method ) {
   var self = this;
   if ( Array.isArray( name ) ) {
     name.filter( function( event ) {
-      console.log(event)
       if ( typeof event === 'string' ) {
         if ( self.callbacks.hasOwnProperty( event ) && Array.isArray( self.callbacks[ event ] )  ) {
           self.callbacks[ event ].push( method );
