@@ -59,4 +59,20 @@ ChainEventEmitter.prototype.emit = function( name, data ) {
   callbacks[0]();
 };
 
+ChainEventEmitter.prototype.getEvents = function() {
+  return Object.keys( this.callbacks );
+};
+
+ChainEventEmitter.prototype.getListneresCount = function( event ) {
+  var count = 0;
+  if ( event && this.callbacks.hasOwnProperty( event ) ) {
+    count += this.callbacks[ event ].length;
+  } else {
+    for ( var e in this.callbacks ) {
+      count += this.callbacks[ e ].length;
+    }
+  }
+  return count;
+};
+
 module.exports = ChainEventEmitter;
