@@ -1,7 +1,7 @@
 # node-chain-event-emitter
 Chain Event Emitter for Node JS
 
-npm i -s chain-event-emitter
+npm i -s node-chain-event-emitter
 
 ```
 const EventEmitter = require('node-chain-event-emitter');
