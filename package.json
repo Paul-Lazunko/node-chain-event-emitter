@@ -1,6 +1,6 @@
 {
   "name": "node-chain-event-emitter",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Chain Event Emitter for NodeJS",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,9 @@
     "url": "git+https://github.com/Paul-Lazunko/node-chain-event-emitter.git"
   },
   "keywords": [
-    "NodeJS",
-    "chain Event Emitter"
+    "Node JS",
+    "chain event emitter",
+    "chain of responsibility"
   ],
   "author": "Paul Lazunko",
   "license": "MIT",

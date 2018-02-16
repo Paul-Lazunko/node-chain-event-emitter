@@ -22,7 +22,7 @@ emitter.on( 'test', ( data, next ) => {
 
 emitter.on( '*', ( data, next ) => {
 
-  console.log({ beforAllEvents: data});
+  console.log({ beforeAllEvents: data});
   next();
   
 });
@@ -37,7 +37,7 @@ emitter.on('test', (data, next) => {
 
 emitter.emit('test', { works: true } );
 
-//  { beforAllEvents: { works: true } }
+//  { beforeAllEvents: { works: true } }
 //  { firstHandler: { works: true } }
 
 ```
