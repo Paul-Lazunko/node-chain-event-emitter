@@ -1,6 +1,6 @@
 {
-  "name": "chain-event-emitter",
-  "version": "1.0.0",
+  "name": "node-chain-event-emitter",
+  "version": "2.0.0",
   "description": "Chain Event Emitter for NodeJS",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "keywords": [
     "NodeJS",
-    "EventEmitter"
+    "chain Event Emitter"
   ],
   "author": "Paul Lazunko",
   "license": "MIT",

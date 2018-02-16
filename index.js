@@ -1,77 +1,67 @@
-var ChainEventEmitter = function ( ) {
-  return Object.create( ChainEventEmitter.prototype );
-};
+class ChainEventEmitter {
 
-ChainEventEmitter.prototype.callbacks = {};
+  constructor () {
 
-ChainEventEmitter.prototype.on = function( name, method ) {
-  var self = this;
-  if ( Array.isArray( name ) ) {
-    name.filter( function( event ) {
-      if ( typeof event === 'string' ) {
-        if ( self.callbacks.hasOwnProperty( event ) && Array.isArray( self.callbacks[ event ] )  ) {
-          self.callbacks[ event ].push( method );
-        }  else {
-          self.callbacks[ event ] = [];
-          self.callbacks[ event ].push( method );
+    this.events = {};
+
+  }
+
+  on ( event, func ) {
+
+    if ( typeof  event === 'string' && typeof func === 'function' ) {
+
+      if ( event === '*') {
+
+        for ( let event in this.events ) {
+
+          this.events[ event ] = this.events[ event ] || [];
+          this.events[ event ].unshift( func );
+
         }
-      }
-    });
-  } else if ( typeof name == 'string' ) {
-    if ( name === '*' ) {
-      if ( this.callbacks.hasOwnProperty( '*' ) && Array.isArray( this.callbacks[ '*' ] )  ) {
-        this.callbacks[ '*' ].push( method );
-      }  else {
-        this.callbacks[ '*' ] = [];
-        this.callbacks[ '*' ].push( method );
-      }
-    } else {
-      if ( this.callbacks.hasOwnProperty( name ) && Array.isArray( this.callbacks[ name ] )  ) {
-        this.callbacks[ name ].push( method );
-      }  else {
-        this.callbacks[ name ] = [];
-        this.callbacks[ name ].push( method );
+
+      } else {
+
+        this.events[ event ] = this.events[ event ] || [];
+        this.events[ event ].push( func );
+
       }
     }
-  }
-};
 
-ChainEventEmitter.prototype.emit = function( name, data ) {
-  var i, callbacks = [];
-  if ( this.callbacks.hasOwnProperty( name ) ) {
-    for ( i = this.callbacks[ name ].length; i >= 0; i-- ) {
-      if ( i > 0 ) {
-        if ( ! this.callbacks[ name ][ i ] ) {
-          callbacks.push( this.callbacks[ name ][ i - 1 ].bind( this, data, function(){} ) );
-        } else {
-          callbacks.push( this.callbacks[ name ][ i - 1 ].bind( this, data, callbacks[ callbacks.length - 1 ] ) );
+  }
+
+  emit ( event, data ) {
+
+    if ( typeof event === 'string' && this.events[ event ] ) {
+
+      let gen = function* ( callbacks ) {
+
+        for ( let i = 0; i < callbacks.length; i++ ) {
+
+          yield callbacks[ i ];
+
         }
-      }
-    }
-  }
-  if ( this.callbacks.hasOwnProperty( '*' ) && Array.isArray( this.callbacks[ '*' ] ) && !! this.callbacks[ '*' ].length ) {
-    for ( i = this.callbacks[ '*' ].length; i > 0; i-- ) {
-      callbacks.push( this.callbacks[ '*' ][ i - 1 ].bind( this, data, callbacks[ callbacks.length - 1 ] ) );
-    }
-  }
-  callbacks = callbacks.reverse();
-  callbacks[0]();
-};
 
-ChainEventEmitter.prototype.getEvents = function() {
-  return Object.keys( this.callbacks );
-};
+      };
 
-ChainEventEmitter.prototype.getListneresCount = function( event ) {
-  var count = 0;
-  if ( event && this.callbacks.hasOwnProperty( event ) ) {
-    count += this.callbacks[ event ].length;
-  } else {
-    for ( var e in this.callbacks ) {
-      count += this.callbacks[ e ].length;
+      let callbacks = gen( this.events[ event ] );
+
+      let next = () => {
+
+        let callback = callbacks.next();
+
+        if ( callback.value ) {
+
+          callback.value.apply(this, [data, next]);
+
+        }
+
+      };
+
+      next();
+
     }
   }
-  return count;
-};
+
+}
 
 module.exports = ChainEventEmitter;
