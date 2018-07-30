@@ -1,3 +1,5 @@
+const generateCallbacks = require('./generator');
+
 class ChainEventEmitter {
 
   constructor () {
@@ -33,17 +35,7 @@ class ChainEventEmitter {
 
     if ( typeof event === 'string' && this.events[ event ] ) {
 
-      let gen = function* ( callbacks ) {
-
-        for ( let i = 0; i < callbacks.length; i++ ) {
-
-          yield callbacks[ i ];
-
-        }
-
-      };
-
-      let callbacks = gen( this.events[ event ] );
+      let callbacks = generateCallbacks( this.events[ event ] );
 
       let next = () => {
 
