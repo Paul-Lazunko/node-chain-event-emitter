@@ -31,6 +31,10 @@ class ChainEventEmitter {
 
   }
 
+  off ( event ) {
+    delete this.events[ event ];
+  }
+
   emit ( event, data ) {
 
     if ( typeof event === 'string' && this.events[ event ] ) {
