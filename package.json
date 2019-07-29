@@ -1,6 +1,6 @@
 {
   "name": "node-chain-event-emitter",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Chain Event Emitter for NodeJS",
   "main": "index.js",
   "scripts": {

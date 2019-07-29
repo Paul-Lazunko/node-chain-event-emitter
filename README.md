@@ -53,3 +53,12 @@ emitter.on('test', (data, next) => {
 });
 
 ```
+
+If you want to change context in the each handler you should pass it to the ChainEventEmitter constructor in the **options** object:
+
+```js
+const EventEmitter = require('node-chain-event-emitter');
+const ctx = {};
+
+let emitter = new EventEmitter({ ctx });
+```

@@ -2,8 +2,10 @@ const generateCallbacks = require('./generator');
 
 class ChainEventEmitter {
 
-  constructor () {
-
+  constructor (options) {
+    if ( options && options.ctx ) {
+      this.ctx = options.ctx;
+    }
     this.events = {};
 
   }
@@ -47,7 +49,7 @@ class ChainEventEmitter {
 
         if ( callback.value ) {
 
-          callback.value.apply(this, [changedData||data, next]);
+          callback.value.apply(this.ctx || this, [changedData || data, next]);
 
         }
 
