@@ -41,13 +41,13 @@ class ChainEventEmitter {
 
       let callbacks = generateCallbacks( this.events[ event ] );
 
-      let next = () => {
+      let next = (changedData) => {
 
         let callback = callbacks.next();
 
         if ( callback.value ) {
 
-          callback.value.apply(this, [data, next]);
+          callback.value.apply(this, [changedData||data, next]);
 
         }
 
