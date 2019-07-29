@@ -62,3 +62,12 @@ const ctx = {};
 
 let emitter = new EventEmitter({ ctx });
 ```
+
+Also You can do it on-the-fly: 
+
+```js
+const context = {};
+
+emitter.emit('test', {}, ctx );
+
+```

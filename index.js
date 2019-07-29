@@ -37,7 +37,7 @@ class ChainEventEmitter {
     delete this.events[ event ];
   }
 
-  emit ( event, data ) {
+  emit ( event, data, ctx ) {
 
     if ( typeof event === 'string' && this.events[ event ] ) {
 
@@ -49,7 +49,7 @@ class ChainEventEmitter {
 
         if ( callback.value ) {
 
-          callback.value.apply(this.ctx || this, [changedData || data, next]);
+          callback.value.apply(ctx || this.ctx || this, [changedData || data, next]);
 
         }
 
